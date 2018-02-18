@@ -1,0 +1,10 @@
+<div class="content">
+  <button (click)="nieuweBestelling()">Nieuwe bestelling</button>
+  <div class="reserveringen" *ngFor="let reservering of reserveringen">
+    <span>{{reservering.type}}</span>
+    <span>{{reservering.aankomsttijd}}</span>
+    <span>{{reservering.kenteken}}</span>
+    <span>{{reservering.vertrektijd}}</span>
+    <button>Betalen</button>
+  </div>
+</div>

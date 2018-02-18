@@ -1,0 +1,37 @@
+<div class="content">
+  <div class="search">
+    <div class="type">
+      <input type="checkbox" name="type" value="economic" [(ngModel)]="economic"> Economic
+      <input type="checkbox" name="type" value="long" [(ngModel)]="long"> Long
+      <input type="checkbox" name="type" value="valet" [(ngModel)]="valet"> Valet
+    </div>
+
+    <div class="kenteken">
+      Kenteken <input type="text" [(ngModel)]="kenfirst"> - <input type="text" [(ngModel)]="kensecond"> - <input type="text" [(ngModel)]="kenthird">
+    </div>
+
+    <button (click)="submit()">Zoek</button>
+  </div>
+  <div class="reserveringen">
+    <table>
+      <tr>
+        <th>Type parking</th>
+        <th>Kenteken</th>
+        <th>Betaald</th>
+        <th>betaaltijd</th>
+        <th>Aankomsttijd</th>
+        <th>Binnenrijtijd</th>
+        <th>Vertrektijd</th>
+      </tr>
+      <tr *ngFor="let reservering of reserveringen">
+        <td>{{reservering.type}}</td>
+        <td>{{reservering.kenteken == "" ? 'Geen kenteken' : reservering.kenteken}}</td>
+        <td>{{reservering.betaald == null ? 'Nog niet betaald' : reservering.betaald}}</td>
+        <td>{{reservering.betalingsTijd == null ? '' : reservering.betalingsTijd}}</td>
+        <td>{{reservering.aankomsttijd}}</td>
+        <td>{{reservering.binnenrijtijd == null ? 'Geen binnenrijtijd' : reservering.binnenrijtijd}}</td>
+        <td>{{reservering.vertrektijd == null ? 'Geen vertrektijd' : reservering.vertrektijd}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

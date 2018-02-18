@@ -1,0 +1,20 @@
+.kenteken input {
+  width: 50px;
+}
+
+table {
+  width: 100%;
+  overflow: scroll;
+}
+
+table tr {
+  background: gray;
+}
+
+table td, table th {
+  padding: 5px;
+}
+
+.reserveringen {
+  height: auto!important;
+}

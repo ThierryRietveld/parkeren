@@ -1,0 +1,29 @@
+<div class="content">
+    <div *ngIf="activated">
+        <h1>U heeft geactiveerd.</h1>
+    </div>
+    <div *ngIf="!activated">
+        <div class="alert alert-danger" *ngIf="form.controls.confirmPassword.errors?.MatchPassword">Password not match</div>
+        <form [formGroup]="form" (ngSubmit)="Activate(form.value)">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-control" 
+                    formControlName="password"
+                    [formGroup]="form">      
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Conform Password</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    id="confirmPassword"
+                    formControlName="confirmPassword"
+                    [formGroup]="form">
+            </div>
+            <input type="submit" class="btn btn-primary" value="submit" >
+        </form>
+    </div>
+</div>

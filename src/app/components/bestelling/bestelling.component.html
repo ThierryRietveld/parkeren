@@ -1,0 +1,87 @@
+<div class="content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+        <div class="form-group">
+            <label for="economic">Economic</label>
+            <input 
+                type="radio"
+                name="type"
+                value="economic"
+                id="economic" 
+                class="form-control"
+                formControlName="type"
+                [formGroup]="form">
+            <label for="long">Long</label>
+            <input 
+                type="radio"
+                name="type"
+                value="long"
+                id="long" 
+                class="form-control"
+                formControlName="type"
+                [formGroup]="form">
+            <label for="valet">Valet</label>
+            <input 
+                type="radio"
+                name="type"
+                value="valet"
+                id="valet" 
+                class="form-control"
+                formControlName="type"
+                [formGroup]="form">
+        </div>
+        <div
+          class="error"
+          *ngIf="form.get('type').errors && submitted">
+          Type is required
+        </div>
+        
+        <div class="form-group" *ngIf="kenteken">
+            <label for="date">Kenteken</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="kenteken"
+                formControlName="kenteken"
+                [formGroup]="form">
+        </div>
+        <div
+            class="error"
+            *ngIf="kentekenError">
+            Kenteken is required
+        </div>
+        <div
+            class="error"
+            *ngIf="(form.get('kenteken').hasError('minlength') ||  form.get('kenteken').hasError('maxlength')) && form.get('kenteken').touched && kenteken">
+            Moet tussen de 4 en 8 karakters zijn
+        </div>
+        <div class="form-group">
+            <label for="date">Aankomst Datum</label>
+            <input 
+                type="date" 
+                class="form-control" 
+                id="date"
+                formControlName="date"
+                [formGroup]="form">
+        </div>
+        <div
+          class="error"
+          *ngIf="form.get('date').errors && (form.get('date').dirty || form.get('date').touched)">
+          Datum is required
+        </div>
+        <div class="form-group">
+            <label for="date">Aankomst Tijd</label>
+            <input 
+                type="time" 
+                class="form-control" 
+                id="time"
+                formControlName="time"
+                [formGroup]="form">
+        </div>
+        <div
+          class="error"
+          *ngIf="form.get('time').errors && (form.get('time').dirty || form.get('time').touched)">
+          Tijd is required
+        </div>
+        <input type="submit" class="btn btn-primary" value="submit">
+    </form>
+</div>

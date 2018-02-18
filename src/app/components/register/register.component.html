@@ -1,0 +1,28 @@
+<div class="content">
+    <div>
+      <label for="achternaam">Achternaam</label>
+      <div class="right">
+        <input id="achternaam" type="text" [(ngModel)]="achternaam">
+      </div>
+    </div>
+    <div>
+      <label for="email">E-mail</label>
+      <div class="right">
+        <input id="email" type="email" [(ngModel)]="email">
+      </div>
+    </div>
+    <div>
+      <label for="nummer">06 Nummer</label>
+      <div class="right">
+        <input id="nummer" type="number" [(ngModel)]="nummer">
+      </div>
+    </div>
+    <div>
+      <label for="rekening">Rekeningnummer</label>
+      <div class="right">
+        <input id="rekening" type="text" [(ngModel)]="rekening">
+      </div>
+    </div>
+    <button (click)="Register()" type="submit" value="OK">OK</button>
+    <button>CANCEL</button>
+</div>
