@@ -172,4 +172,30 @@ export class DataService {
 
     return this.http.post("http://localhost:4201/betalen", this.sendData);
   }
+
+  getUsers(){
+    this.sendData = {};
+    return this.http.post("http://localhost:4201/getUsers", this.sendData);
+  }
+
+  getAllRoles(){
+    this.sendData = {};
+    return this.http.post("http://localhost:4201/getAllRoles", this.sendData);
+  }
+
+  addUserRole(id, role){
+    this.sendData = {
+      id,
+      role
+    }
+    return this.http.post("http://localhost:4201/addUserRole", this.sendData);
+  }
+
+  deleteUserRole(id, role){
+    this.sendData = {
+      id,
+      role
+    }
+    return this.http.post("http://localhost:4201/deleteUserRole", this.sendData);
+  }
 }

@@ -48,6 +48,8 @@ export class GaragemanagerComponent implements OnInit {
   submit(){
     console.log(this.economic,this.long,this.valet,this.kenfirst,this.kensecond,this.kenthird);
 
+    let kenteken;
+
     let types = [];
     if(this.economic) {
       types.push('economic');
@@ -59,7 +61,17 @@ export class GaragemanagerComponent implements OnInit {
       types.push('valet');
     }
 
-    this.data.searchReserveringen(types, this.kenfirst + this.kensecond + this.kenthird)
+    if(this.kenfirst == undefined || this.kensecond == undefined || this.kenthird == undefined || this.kenfirst == "" || this.kensecond == "" || this.kenthird == "" ){
+      kenteken = "";
+    }else {
+      kenteken = this.kenfirst + "-" + this.kensecond + "-" + this.kenthird;
+    }
+
+    kenteken = kenteken.toUpperCase();
+
+    console.log(kenteken);
+
+    this.data.searchReserveringen(types, kenteken)
       .subscribe(data => {
 
         console.log(data);

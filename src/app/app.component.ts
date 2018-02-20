@@ -107,8 +107,6 @@ export class AppComponent {
           }
         });
 
-      
-
       var route = value['urlAfterRedirects'];
 
       if(route != undefined){
@@ -128,10 +126,12 @@ export class AppComponent {
           this.headerTitle = "Reserveringen";
         } else if (route == '/bestelling') {
           this.headerTitle = "Nieuwe bestelling";
-        }  else if (route == '/garagemanager') {
+        } else if (route == '/garagemanager') {
           this.headerTitle = "Garagemanager";
         } else if (String(route).includes('/betalen')) {
           this.headerTitle = "Betalen";
+        } else if (route == '/admin') {
+          this.headerTitle = "Admin";
         } else {
           this.headerTitle = "";
         }

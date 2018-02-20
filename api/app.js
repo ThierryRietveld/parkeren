@@ -189,10 +189,19 @@ app.post("/getRoles", function(req, res) {
 });
 
 app.post("/searchReserveringen", function(req, res) {
-    con.query("SELECT * FROM bestellingen as b, typeparking as t WHERE (t.type='"+req.body.types[0]+"' OR t.type='"+req.body.types[1]+"' OR t.type='"+req.body.types[2]+"') AND b.type = t.id",function(err, result, fields){
-        if (err) throw err;
-        res.send(result);
-    });
+    if(req.body.kenteken){
+        console.log(req.body.kenteken);
+        con.query("SELECT * FROM bestellingen as b, typeparking as t WHERE b.kenteken='"+req.body.kenteken+"' AND (t.type='"+req.body.types[0]+"' OR t.type='"+req.body.types[1]+"' OR t.type='"+req.body.types[2]+"') AND b.type = t.id",function(err, result, fields){
+            if (err) throw err;
+            res.send(result);
+        });
+    } else {
+        con.query("SELECT * FROM bestellingen as b, typeparking as t WHERE (t.type='"+req.body.types[0]+"' OR t.type='"+req.body.types[1]+"' OR t.type='"+req.body.types[2]+"') AND b.type = t.id",function(err, result, fields){
+            if (err) throw err;
+            res.send(result);
+        });
+    }
+    
 });
 
 app.post("/betalen", function(req, res){
@@ -212,6 +221,45 @@ app.post("/uitrijden", function(req, res){
     con.query("UPDATE bestellingen SET vertrektijd=NOW() WHERE userId="+req.body.userId+" AND vertrektijd IS NULL ", function(err, result, fields){
         if (err) throw err;
         res.send([true]);
+    });
+});
+
+app.post("/getUsers", function(req, res){
+    con.query("SELECT id, email, achternaam FROM users", function(err, result1, fields){
+        if (err) throw err;
+        con.query("SELECT uu.user, ur.role FROM users_userroles as uu, userroles as ur WHERE uu.role = ur.id", function(err, result2, fields){
+            if (err) throw err;
+            for(let user of result1){
+                user.roles = [];
+                for(let role of result2){
+                    if(user.id == role.user){
+                        user.roles.push(role.role);
+                    }
+                }
+            }
+            res.send(result1);
+        }); 
+    });
+});
+
+app.post("/getAllRoles", function(req, res){
+    con.query("SELECT * FROM userroles", function(err, result, fields){
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.post("/addUserRole", function(req,res){
+    con.query("INSERT INTO users_userroles VALUES(null, "+req.body.id+", (select id from userroles where role='"+req.body.role+"'))", function(err, result, fields){
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.post("/deleteUserRole", function(req,res){
+    con.query("DELETE FROM users_userroles WHERE user="+req.body.id+" AND  role=(select id from userroles where role='"+req.body.role+"') ", function(err, result, fields){
+        if (err) throw err;
+        res.send(result);
     });
 });
 

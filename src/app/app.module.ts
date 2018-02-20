@@ -21,6 +21,7 @@ import { GaragemanagerComponent } from './components/garagemanager/garagemanager
 import { UitrijdenComponent } from './components/uitrijden/uitrijden.component';
 import { BinnenrijdenComponent } from './components/binnenrijden/binnenrijden.component';
 import { BetaalComponent } from './components/betaal/betaal.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const appRoutes: Routes = [
   { path: '', component:  HomeComponent},
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
   { path: 'binnenrijden/:userId/:id', component: BinnenrijdenComponent},
   { path: 'betalen/:userId/:bestellingId', component: BetaalComponent},
   { path: 'uitrijden/:userId/:bestellingId', component: UitrijdenComponent},
+  { path: 'admin', component: AdminComponent, canActivate: [LoginGuard]},
   { path: '**', component: PageNotFountComponent}
 ];
 
@@ -49,7 +51,8 @@ const appRoutes: Routes = [
     GaragemanagerComponent,
     UitrijdenComponent,
     BinnenrijdenComponent,
-    BetaalComponent
+    BetaalComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

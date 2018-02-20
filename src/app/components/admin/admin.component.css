@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+  background: lightgray;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+table td {
+ padding: 5px;
+ cursor: pointer;
+}
+
+table tr {
+  background: gray;
+}
+
+table tr:hover {
+  background: lightgray;
+}

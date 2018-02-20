@@ -1,0 +1,27 @@
+<div class="content">
+  <h2>Gebruikers</h2>
+  <div class="edit-user" *ngIf="editUser">
+    <span (click)="closeUser()">x</span>
+    <div>
+      <span>{{editUsert.achternaam}}</span>
+      <span>{{editUsert.email}}</span>
+      <div>
+        <div *ngFor="let role of roles">
+            <input type="checkbox" name="roles" [(ngModel)]="qtd[role.role]" (change)="roleChanged(qtd[role.role], role.role)">{{role.role}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <table>
+    <tr>
+      <th>E-mail</th>
+      <th>Achternaam</th>
+      <th>Rollen</th>
+    </tr>
+    <tr *ngFor="let user of users" (click)="clickUser(user.id)">
+      <td>{{user.email}}</td>
+      <td>{{user.achternaam}}</td>
+      <td>{{user.roles}}</td>
+    </tr>
+  </table>
+</div>
