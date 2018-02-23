@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const port = 4201;
 const sha1 = require('sha1');
 const axios = require('axios');
+const expressSanitizer = require('express-sanitizer');
 
 http.listen(4201, function () {
   console.log("App on port " + port);
@@ -20,6 +21,10 @@ app.use(bodyParser.urlencoded({
  * Parses the text as JSON and exposes the resulting object on req.body.
  */
 app.use(bodyParser.json());
+
+// Mount express-sanitizer here
+app.use(expressSanitizer()); // this line follows bodyParser() instantiations
+
 
 // Add headers
 app.use(function (req, res, next) {
@@ -66,6 +71,7 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/register', function (req, res) {
+  req.body.sanitized = req.sanitize(req.body.propertyToSanitize);
 
   makeid(function (id) {
     makeToken(function (token) {

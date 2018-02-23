@@ -7,5 +7,6 @@
 <div id="nav" [class.visible]="navbarVisible">
   <button routerLink="{{nav.location}}" *ngFor="let nav of navbar"><i class="{{nav.icon}}"></i>{{nav.text}}</button>
   <button (click)="logout()">Logout</button>
+  <button (click)="geluid = !geluid">Geluid {{geluid}}</button>
 </div>
 <router-outlet></router-outlet>
