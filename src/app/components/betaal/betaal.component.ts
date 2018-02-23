@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BetaalComponent implements OnInit {
 
-  constructor(private data:DataService, private route:ActivatedRoute) { }
+  constructor(private data: DataService, private route: ActivatedRoute) { }
 
   userId;
   bestellingId;
@@ -20,9 +20,11 @@ export class BetaalComponent implements OnInit {
       this.bestellingId = params['bestellingId'];
       this.userId = params['userId'];
     });
+
+    // this.data.
   }
 
-  betaal(){
+  betaal() {
     this.data.betaal(this.userId, this.bestellingId)
       .subscribe(data => console.log(data));
   }

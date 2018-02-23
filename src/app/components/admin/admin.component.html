@@ -21,7 +21,7 @@
     <tr *ngFor="let user of users" (click)="clickUser(user.id)">
       <td>{{user.email}}</td>
       <td>{{user.achternaam}}</td>
-      <td>{{user.roles}}</td>
+      <td><span *ngFor="let role of user.roles" class="user-roles-in-table">{{role}}</span></td>
     </tr>
   </table>
 </div>

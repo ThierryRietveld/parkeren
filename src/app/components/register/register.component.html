@@ -1,28 +1,46 @@
 <div class="content">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
     <div>
       <label for="achternaam">Achternaam</label>
-      <div class="right">
-        <input id="achternaam" type="text" [(ngModel)]="achternaam">
-      </div>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="kenteken"
+            formControlName="achternaam"
+            [formGroup]="form">
     </div>
+    <div class="error" *ngIf="form.controls['achternaam'].hasError('required') && form.controls['achternaam'].touched">Dit is required</div>
     <div>
-      <label for="email">E-mail</label>
-      <div class="right">
-        <input id="email" type="email" [(ngModel)]="email">
-      </div>
+      <label for="email">email</label>
+        <input 
+            type="email" 
+            class="form-control" 
+            id="email"
+            formControlName="email"
+            [formGroup]="form">
     </div>
+    <div class="error" *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched">Dit is required</div>
     <div>
-      <label for="nummer">06 Nummer</label>
-      <div class="right">
-        <input id="nummer" type="number" [(ngModel)]="nummer">
-      </div>
+      <label for="nummer">Telefoon nummer</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="nummer"
+            formControlName="nummer"
+            [formGroup]="form">
     </div>
+    <div class="error" *ngIf="form.controls['nummer'].hasError('required') && form.controls['nummer'].touched">Dit is required</div>
     <div>
-      <label for="rekening">Rekeningnummer</label>
-      <div class="right">
-        <input id="rekening" type="text" [(ngModel)]="rekening">
-      </div>
+      <label for="rekening">rekening nummer</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="rekening"
+            formControlName="rekening"
+            [formGroup]="form">
     </div>
-    <button (click)="Register()" type="submit" value="OK">OK</button>
+    <div class="error" *ngIf="form.controls['rekening'].hasError('required') && form.controls['rekening'].touched">Dit is required</div>
+    <input type="submit" class="btn btn-primary" value="OK" [disabled]="!form.valid">
     <button>CANCEL</button>
+  </form>
 </div>

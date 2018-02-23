@@ -16,4 +16,14 @@ table tr {
 
 table tr:hover {
   background: lightgray;
+  color: rgb(75, 75, 75);
+}
+
+.user-roles-in-table {
+  background: rgba(143, 143, 143, 0.5);
+  border: 2px solid rgba(54, 54, 54, 0.5);
+  padding: 3px;
+  border-radius: 4px;
+  margin: 0px 2px;
+  display: inline-block;
 }

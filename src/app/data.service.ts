@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Injectable()
 export class DataService {
 
-  constructor(private http:HttpClient, private router:Router) { 
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   sendData;
@@ -15,7 +15,7 @@ export class DataService {
     this.sendData = {
       email: email,
       password: password
-    }
+    };
 
     return this.http.post('http://localhost:4201/login', this.sendData);
   }
@@ -26,19 +26,19 @@ export class DataService {
       email: email,
       nummer: nummer,
       rekening: rekening
-    }
+    };
 
     this.http.post('http://localhost:4201/register', this.sendData)
       .subscribe(data => console.log(data));
   }
 
   Activate(password, id, token) {
-    console.log(password,id);
+    console.log(password, id);
     this.sendData = {
       password: password,
       id: id,
       token: token
-    }
+    };
     return this.http.post('http://localhost:4201/activate', this.sendData);
   }
 
@@ -46,53 +46,53 @@ export class DataService {
     this.sendData = {
       id: id,
       token: token
-    }
+    };
     return this.http.post('http://localhost:4201/getUser', this.sendData);
   }
 
   IsLoggedIn() {
-    if(!localStorage.getItem("userId") && !localStorage.getItem("userToken")){
+    if (!localStorage.getItem('userId') && !localStorage.getItem('userToken')) {
       return false;
     } else {
       this.sendData = {
-        id: localStorage.getItem("userId"),
-        token: localStorage.getItem("userToken")
-      }
-  
+        id: localStorage.getItem('userId'),
+        token: localStorage.getItem('userToken')
+      };
+
       this.http.post('http://localhost:4201/isloggedin', this.sendData)
         .subscribe(data => {
-          if(data[0]) {
+          if (data[0]) {
 
             return true;
-            
+
           } else {
-            
+
             return false;
           }
         });
     }
   }
 
-  getReserveringen(){
+  getReserveringen() {
     this.sendData = {
-      id: localStorage.getItem("userId"),
-      token: localStorage.getItem("userToken")
+      id: localStorage.getItem('userId'),
+      token: localStorage.getItem('userToken')
     };
 
     return this.http.post('http://localhost:4201/getReserveringen', this.sendData);
   }
 
   IsAdmin() {
-    let id = localStorage.getItem("userId");
-    let token = localStorage.getItem("userToken");
+    const id = localStorage.getItem('userId');
+    const token = localStorage.getItem('userToken');
 
-    if(!localStorage.getItem("userId") && !localStorage.getItem("userToken")){
+    if (!localStorage.getItem('userId') && !localStorage.getItem('userToken')) {
       return false;
     } else {
     this.GetUser(id, token)
       .subscribe(data => {
         console.log(data);
-        if(data[0].role == 2){
+        if (data[0].role === 2) {
           return true;
         } else {
           return false;
@@ -101,101 +101,109 @@ export class DataService {
     }
   }
 
-  getRoles(){
-    let id = localStorage.getItem("userId");
-    let token = localStorage.getItem("userToken");
+  getRoles() {
+    const id = localStorage.getItem('userId');
+    const token = localStorage.getItem('userToken');
 
     this.sendData = {
       id: id,
       token: token
-    }
+    };
 
-    let dataa;
-
-    return this.http.post("http://localhost:4201/getRoles", this.sendData);
+    return this.http.post('http://localhost:4201/getRoles', this.sendData);
   }
 
   nieuweBestelling(form) {
-    var id = localStorage.getItem("userId");
-    var token = localStorage.getItem("userToken");
+    const id = localStorage.getItem('userId');
+    const token = localStorage.getItem('userToken');
     this.GetUser(id, token)
       .subscribe(data => {
         this.sendData = {
           form: form,
           user: data
-        }
-        this.http.post("http://localhost:4201/bestelling", this.sendData)
+        };
+
+        this.http.post('http://localhost:4201/bestelling', this.sendData)
+          // tslint:disable-next-line:no-shadowed-variable
           .subscribe(data => {
-            if(data[0]){
+            if (data[0]) {
               this.router.navigate(['/reserveringen']);
             } else {
-              alert("De datum is niet goed");
+              alert('De datum is niet goed');
             }
-          });;
+          });
       });
   }
 
-  uitrijden(userId, id) { 
+  uitrijden(userId, id) {
     this.sendData = {
       userId: userId,
       id: id
-    }
-    return this.http.post("http://localhost:4201/uitrijden",this.sendData);
+    };
+    return this.http.post('http://localhost:4201/uitrijden', this.sendData);
   }
 
-  binnenrijden(userId,id){
+  binnenrijden(userId, id) {
     this.sendData = {
       userId: userId,
       id: id
-    }
-    return this.http.post("http://localhost:4201/binnenrijden",this.sendData);
+    };
+    return this.http.post('http://localhost:4201/binnenrijden', this.sendData);
   }
 
-  searchReserveringen(types, kenteken){
+  searchReserveringen(types, kenteken) {
     this.sendData = {
       types: types,
       kenteken: kenteken
-    }
+    };
 
     console.log(this.sendData);
 
-    return this.http.post("http://localhost:4201/searchReserveringen", this.sendData);
+    return this.http.post('http://localhost:4201/searchReserveringen', this.sendData);
   }
 
-  betaal(userId, bestellingsId){
+  betaal(userId, bestellingsId) {
     this.sendData = {
       userId: userId,
       bestellingId: bestellingsId,
       prijs: 100,
       tijd: new Date()
-    }
+    };
 
-    return this.http.post("http://localhost:4201/betalen", this.sendData);
+    return this.http.post('http://localhost:4201/betalen', this.sendData);
   }
 
-  getUsers(){
+  getUsers() {
     this.sendData = {};
-    return this.http.post("http://localhost:4201/getUsers", this.sendData);
+    return this.http.post('http://localhost:4201/getUsers', this.sendData);
   }
 
-  getAllRoles(){
+  getAllRoles() {
     this.sendData = {};
-    return this.http.post("http://localhost:4201/getAllRoles", this.sendData);
+    return this.http.post('http://localhost:4201/getAllRoles', this.sendData);
   }
 
-  addUserRole(id, role){
+  addUserRole(id, role) {
     this.sendData = {
       id,
       role
-    }
-    return this.http.post("http://localhost:4201/addUserRole", this.sendData);
+    };
+    return this.http.post('http://localhost:4201/addUserRole', this.sendData);
   }
 
-  deleteUserRole(id, role){
+  deleteUserRole(id, role) {
     this.sendData = {
       id,
       role
-    }
-    return this.http.post("http://localhost:4201/deleteUserRole", this.sendData);
+    };
+    return this.http.post('http://localhost:4201/deleteUserRole', this.sendData);
+  }
+
+  getStayTime(userId, bestellingsId) {
+    this.sendData = {
+      userId,
+      bestellingsId
+    };
+    return this.http.post('http://localhost:4201/getStayTime', this.sendData);
   }
 }

@@ -1,0 +1,7 @@
+.error {
+  background: rgb(218, 27, 27);
+  border: rgb(141, 26, 26) 2px solid;
+  border-radius: 5px;
+  padding: 10px;
+  color: rgb(99, 0, 0);
+}

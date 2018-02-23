@@ -38,13 +38,17 @@ export class AppComponent {
   ]
 
   navbarBalie = [
-    { location: '/balie', text: 'Balie', icon:''},
+    { location: '/baliemedewerker', text: 'Balie', icon:''},
   ]
 
   navbarVisible = false;
   private _routerSub = Subscription.EMPTY;
 
   constructor(private router: Router, private data:DataService) {
+
+    // Awesome sound effects
+    let parkerenGeluid = new Audio('../assets/parkeren.mp3');
+    window.addEventListener('click', () => parkerenGeluid.play());
     
     this._routerSub = this.router.events
       .filter(event => event instanceof NavigationEnd)
@@ -132,7 +136,9 @@ export class AppComponent {
           this.headerTitle = "Betalen";
         } else if (route == '/admin') {
           this.headerTitle = "Admin";
-        } else {
+        } else if (route == '/baliemedewerker') {
+          this.headerTitle = "Baliemedewerker";
+        }else {
           this.headerTitle = "";
         }
       }

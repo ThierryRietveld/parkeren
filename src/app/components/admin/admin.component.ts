@@ -11,36 +11,38 @@ export class AdminComponent implements OnInit {
 
   users = [];
   editUser = false;
-  editUsert = {roles: [], id:0};
+  editUsert = { roles: [], id: 0 };
 
   roles = [];
 
   qtd = {
-    "gebruiker" : false,
-    "baliemedewerker" : false,
-    "beheerder" : false,
-    "garagemedewerker" : false
+    'gebruiker': false,
+    'baliemedewerker': false,
+    'beheerder': false,
+    'garagemedewerker': false
   };
 
-  
 
-  constructor(private data:DataService, private router:Router) { }
+
+  constructor(private data: DataService, private router: Router) {}
 
   ngOnInit() {
     this.data.getRoles()
       .subscribe(data => {
-        
-        if(data[0]) {
+
+        if (data[0]) {
           let access = false;
-          for(let role in data){
+
+          // tslint:disable-next-line:forin
+          for (const role in data) {
 
             console.log(data[role]);
-            if(data[role] == "beheerder"){
+            if (data[role] === 'beheerder') {
               access = true;
             }
           }
 
-          if(!access){
+          if (!access) {
             this.router.navigate(['/']);
           }
 
@@ -48,67 +50,91 @@ export class AdminComponent implements OnInit {
           this.router.navigate(['/']);
         }
       });
-    
+
     this.data.getUsers()
       .subscribe(data => {
-        console.log(data);
-        for(let user in data){
+        console.log(data.constructor);
+        // tslint:disable-next-line:forin
+        for (const user in data) {
           this.users.push(data[user]);
         }
       });
-    
+
     this.data.getAllRoles()
       .subscribe(data => {
         console.log(data);
-        for(let role in data){
+        // tslint:disable-next-line:forin
+        for (const role in data) {
           this.roles.push(data[role]);
         }
       });
   }
 
-  clickUser(userId){
-    this.editUser = true;
-    console.log("user",userId);
+  clickUser(userId) {
 
-    for(let role in this.qtd){
+    this.editUser = true;
+
+    // tslint:disable-next-line:forin
+    for (const role in this.qtd) {
       this.qtd[role] = false;
     }
 
-    for(let user of this.users){
-      if(user.id == userId){
-        this.editUsert = user;
-        console.log(this.editUsert);
-        for(let role of this.editUsert.roles){
-          console.log(Boolean());
+    for (const user of this.users) {
 
-          if(role in this.qtd){
+      if (user.id === userId) {
+
+        this.editUsert = user;
+        for (const role of this.editUsert.roles) {
+
+          if (role in this.qtd) {
             this.qtd[role] = true;
           }
         }
       }
     }
-    
+
   }
 
-  closeUser(){
+  closeUser() {
     this.editUser = false;
   }
 
-  roleChanged(toggle, role){
+  roleChanged(toggle, role) {
     console.log(toggle, role);
-    if(toggle){
+
+    if (toggle) {
+
       this.data.addUserRole(this.editUsert.id, role)
         .subscribe(data => {
-          console.log(data);
+
+          this.users.forEach(user => {
+
+            if (user.id === this.editUsert.id) {
+
+              user.roles.push(role);
+            }
+          });
         });
     } else {
       this.data.deleteUserRole(this.editUsert.id, role)
+
         .subscribe(data => {
-          console.log(data);
+          this.users.forEach(user => {
+
+            if (user.id === this.editUsert.id) {
+
+              user.roles.forEach((userRole, i) => {
+
+                if (userRole === role) {
+
+                  user.roles.splice(i, 1);
+                }
+              });
+            }
+          });
         });
     }
 
-    
   }
 
 }

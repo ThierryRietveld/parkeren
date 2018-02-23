@@ -9,7 +9,7 @@ import { DataService } from '../../data.service';
 })
 export class BinnenrijdenComponent implements OnInit {
 
-  constructor(private route:ActivatedRoute, private data:DataService) { }
+  constructor(private route: ActivatedRoute, private data: DataService) { }
 
   id;
   userId;
@@ -17,7 +17,7 @@ export class BinnenrijdenComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
+      this.id = +params['id'];
       this.userId = params['userId'];
       this.email = params['email'];
     });
@@ -25,11 +25,8 @@ export class BinnenrijdenComponent implements OnInit {
     this.data.binnenrijden(this.userId, this.id)
       .subscribe(data => {
         console.log(data);
-        if(data[0]){
 
-        }
-        
-      })
+      });
   }
 
 }
